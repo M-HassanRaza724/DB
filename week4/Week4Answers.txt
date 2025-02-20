@@ -1,0 +1,68 @@
+Q1 
+SELECT e.EmployeeID, CONCAT(e.FirstName, ' ', e.LastName) AS EmployeeName, s.ShipperID, s.ShipperName FROM employees e CROSS JOIN shippers s
+***
+
+
+Q2 
+SELECT c.CustomerID, c.CustomerName, s.ShipperID, s.ShipperName, LEFT(c.CustomerName, 3) AS FirstThreeChars FROM customers c, orders o, shippers s WHERE LEFT(c.CustomerName, 3) = LEFT(s.ShipperName, 3)
+***
+
+
+Q3 
+SELECT e1.EmployeeID AS Employee1ID, CONCAT(e1.FirstName, ' ', e1.LastName) AS Employee1Name, e2.EmployeeID AS Employee2ID, CONCAT(e2.FirstName, ' ', e2.LastName) AS Employee2Name FROM employees e1 CROSS JOIN employees e2 WHERE e1.EmployeeID < e2.EmployeeID
+***
+
+
+Q4 
+SELECT o.OrderID, c.CustomerName, p.ProductName, od.Quantity, CONCAT(e.FirstName, ' ', e.LastName) AS EmployeeName, s.ShipperName FROM orders o JOIN customers c ON o.CustomerID = c.CustomerID JOIN employees e ON o.EmployeeID = e.EmployeeID JOIN orderdetails od ON o.OrderID = od.OrderID JOIN products p ON od.ProductID = p.ProductID JOIN shippers s ON o.ShipperID = s.ShipperID
+***
+
+
+Q5 
+SELECT p.ProductID, p.ProductName, c.CategoryName, s.SupplierName FROM products p LEFT JOIN orderdetails od ON p.ProductID = od.ProductID JOIN categories c ON p.CategoryID = c.CategoryID JOIN suppliers s ON p.SupplierID = s.SupplierID WHERE od.OrderDetailID IS NULL
+***
+
+
+Q6 
+SELECT DISTINCT e.EmployeeID, CONCAT(e.FirstName, ' ', e.LastName) AS EmployeeName FROM employees e LEFT JOIN orders o ON e.EmployeeID = o.EmployeeID AND o.OrderDate >= DATE_SUB(DATE_FORMAT(o.OrderDate, '%Y-12-31'), INTERVAL 6 MONTH) AND o.OrderDate <= DATE_FORMAT(o.OrderDate, '%Y-12-31') WHERE o.OrderID IS NULL
+***
+
+
+Q7 
+SELECT o.OrderID, o.CustomerID, c.CustomerName, o.EmployeeID, CONCAT(e.FirstName, ' ', e.LastName) AS EmployeeName FROM orders o LEFT JOIN customers c ON o.CustomerID = c.CustomerID LEFT JOIN employees e ON o.EmployeeID = e.EmployeeID
+***
+
+
+Q8 
+SELECT c.CustomerID, c.CustomerName, COALESCE(CAST(o.OrderID AS CHAR), 'No Order Placed') AS OrderID FROM customers c LEFT JOIN orders o ON c.CustomerID = o.CustomerID
+***
+
+
+Q9 
+SELECT o.OrderID, o.CustomerID, c.CustomerName, HOUR(o.OrderDate) AS OrderHour FROM orders o JOIN customers c ON o.CustomerID = c.CustomerID WHERE HOUR(o.OrderDate) < 9 OR HOUR(o.OrderDate) > 17
+***
+
+
+Q10 
+SELECT DISTINCT p.ProductID, p.ProductName, e1.EmployeeID AS Employee1ID, CONCAT(e1.FirstName, ' ', e1.LastName) AS Employee1Name, e2.EmployeeID AS Employee2ID, CONCAT(e2.FirstName, ' ', e2.LastName) AS Employee2Name FROM orders o1 JOIN orders o2 ON o1.EmployeeID < o2.EmployeeID JOIN orderdetails od1 ON o1.OrderID = od1.OrderID JOIN orderdetails od2 ON o2.OrderID = od2.OrderID JOIN employees e1 ON o1.EmployeeID = e1.EmployeeID JOIN employees e2 ON o2.EmployeeID = e2.EmployeeID JOIN products p ON od1.ProductID = od2.ProductID AND od1.ProductID = p.ProductID
+***
+
+
+Q11 
+SELECT s.SupplierID, s.SupplierName FROM suppliers s LEFT JOIN products p ON s.SupplierID = p.SupplierID
+***
+
+
+Q12 
+SELECT c.CustomerID, c.CustomerName FROM customers c LEFT JOIN orders o ON c.CustomerID = o.CustomerID WHERE o.OrderID IS NULL
+***
+
+
+Q13 
+SELECT DISTINCT c1.CustomerID AS Customer1ID, c1.CustomerName AS Customer1Name, c2.CustomerID AS Customer2ID, c2.CustomerName AS Customer2Name, o1.OrderDate FROM orders o1 JOIN orders o2 ON DATE(o1.OrderDate) = DATE(o2.OrderDate) JOIN customers c1 ON o1.CustomerID = c1.CustomerID JOIN customers c2 ON o2.CustomerID = c2.CustomerID WHERE c1.CustomerID < c2.CustomerID
+***
+
+
+Q14 
+SELECT DISTINCT c.CustomerID, c.CustomerName, e1.EmployeeID AS Employee1ID, CONCAT(e1.FirstName, ' ', e1.LastName) AS Employee1Name, e2.EmployeeID AS Employee2ID, CONCAT(e2.FirstName, ' ', e2.LastName) AS Employee2Name FROM orders o1 JOIN orders o2 ON o1.CustomerID = o2.CustomerID JOIN employees e1 ON o1.EmployeeID = e1.EmployeeID JOIN employees e2 ON o2.EmployeeID = e2.EmployeeID JOIN customers c ON o1.CustomerID = c.CustomerID WHERE e1.EmployeeID < e2.EmployeeID
+***

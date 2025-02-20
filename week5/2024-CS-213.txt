@@ -1,0 +1,54 @@
+Q1
+SELECT Country, COUNT(CustomerID) AS Total_Customers From customers Group by country
+***
+Q2
+select CategoryID, CategoryName , count(productid) Total_Products From products Natural join categories group by CategoryID
+***
+Q3
+select E.EmployeeID, E.LastName, count(O.orderID) AS Total_Orders from orders O right join employees E on O.employeeID = E.EmployeeID group by EmployeeID
+***
+Q4
+select ProductID, ProductName, sum(quantity) Total_Quantity from orderdetails natural join products group by ProductID
+***
+Q5
+SELECT ShipperID, ShipperName, count(orderID)Total_Orders From orders Natural join shippers Group by shipperID
+***
+Q6
+select CustomerID, CustomerName, count(orderID) Total_Orders from customers natural join orders group by CustomerID Having Total_orders > 5
+***
+Q7
+select ProductID, ProductName, AVG(quantity) Avg_Quantity from orderdetails natural join products group by productID
+***
+Q8
+select ProductID, ProductName, sum(quantity) Total_Quantity from orderdetails natural join products group by productID order by Total_Quantity desc
+***
+Q9
+select month(Orderdate) OrderMonth,count(orderID) Total_Orders from orders group by OrderMonth
+***
+Q10
+select CategoryID, CategoryName, sum(quantity) Total_SalesQuantity from orderdetails natural join products natural join categories group by CategoryID
+***
+Q11
+select EmployeeID, LastName, count(orderID) Total_Orders from orders natural join employees group by employeeID having Total_Orders > 20
+***
+Q12
+select ProductID, ProductName, sum(quantity) Total_Quantity from products natural join orderdetails group by productID having Total_Quantity > 50
+***
+Q13
+select year(Orderdate) OrderYear,count(orderID) Total_Orders from orders group by OrderYear
+***
+Q14
+select E.EmployeeID, E.LastName, count(O.orderid) Total_Orders from orders O Right join employees E on O.EmployeeID = E.EmployeeID group by E.EmployeeID
+***
+Q15
+select ProductID, ProductName from orderdetails natural join products group by productID having count(orderid) = 0
+***
+Q16
+select Country, count(orderid) Total_Orders from orders natural join customers group by Country
+***
+Q17
+select EmployeeID, LastName,count(ProductID) Unique_Products_Count from (select EmployeeID, LastName,ProductID  from employees natural join orders natural join orderdetails natural join products group by EmployeeID,ProductID ) as IntermediateTable group by EmployeeID
+***
+Q18
+select ShipperID, ShipperName, count(orderid) as Total_Orders from shippers natural join orders group by shipperID
+***

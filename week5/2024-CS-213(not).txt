@@ -1,0 +1,9 @@
+Q1
+SELECT Country, COUNT(CustomerID) AS Total_Customers From customers Group by country 
+***
+Q2
+select C.CategoryID, C.CategoryName , count(productid) AS Total_Products From products P Natural join categories C group by P.CategoryID
+***
+Q3
+select E.EmployeeID, E.LastName, count(O.orderID) AS Total_Orders from orders O Natural join employees E Group by O.EmployeeID
+***

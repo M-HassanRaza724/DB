@@ -1,0 +1,42 @@
+Q1
+SELECT EmployeeID,CONCAT(FirstName," ",LastName) AS EmployeeName,ShipperID,ShipperName FROM employees,shippers
+***
+Q2
+SELECT C.CustomerID,C.CustomerName,S.ShipperID,S.ShipperName,LEFT(S.ShipperName, 3) AS FirstThreeCharacters From customers C CROSS JOIN shippers S WHERE LEFT(S.ShipperName, 3) = LEFT(C.CustomerName, 3)
+***
+Q3
+SELECT E1.EmployeeID AS Employee1ID,CONCAT(E1.FirstName," ",E1.LastName) AS Employee1Name, E2.EmployeeID AS Employee2ID,CONCAT(E2.FirstName," ",E2.LastName) AS Employee2Name FROM employees E1, employees E2 WHERE E1.EmployeeID < E2.EmployeeID;
+***
+Q4
+SELECT  O.OrderID, C.CustomerName, P.ProductName, OD.Quantity, CONCAT(E.FirstName," ",E.LastName) AS EmployeeName, S.ShipperName FROM orders O  NATURAL JOIN customers C  NATURAL JOIN employees E  NATURAL JOIN shippers S  NATURAL JOIN orderdetails OD  INNER JOIN products p  WHERE OD.ProductID = P.ProductID;
+***
+Q5
+SELECT P.ProductID, P.ProductName, C.CategoryName, SupplierName FROM orderdetails OD RIGHT OUTER JOIN products P ON OD.ProductID = P.ProductID NATURAL JOIN categories C NATURAL JOIN suppliers WHERE OD.OrderID IS NULL;
+***
+Q6
+SELECT DISTINCT E.EmployeeID,CONCAT(E.FirstName," ",E.LastName) AS EmployeeName FROM employees Enot INNER JOIN orders O ON (Enot.EmployeeID = O.EmployeeID) AND (O.OrderDate LIKE '%-07-%' OR O.OrderDate LIKE '%-08-%' OR O.OrderDate LIKE '%-09-%' OR O.OrderDate LIKE '%-10-%' OR O.OrderDate LIKE '%-11-%' OR O.OrderDate LIKE '%-12-%') RIGHT JOIN employees E ON E.employeeID = Enot.EmployeeID WHERE Enot.EmployeeID IS NULL 
+***
+Q7
+SELECT O.OrderID , C.CustomerID, C.CustomerName, E.EmployeeID, CONCAT(E.FirstName," ",E.LastName) AS EmployeeName FROM orders O LEFT JOIN employees E  ON O.EmployeeID = E.EmployeeID LEFT JOIN customers C ON O.CustomerID = C.CustomerID 
+***
+Q8
+SELECT C.CustomerID, C.CustomerName, IFNULL(O.OrderID,"No Order Placed") AS OrderID FROM customers C LEFT JOIN orders O ON C.CustomerID = O.CustomerID 
+***
+Q9
+SELECT O.OrderID,C.CustomerID,C.CustomerName, HOUR(O.OrderDate) AS OrderHour FROM orders O LEFT JOIN customers C ON O.CustomerID = C.CustomerID WHERE '09' < HOUR(O.OrderDate) < '17'
+***
+Q10
+SELECT P.ProductID, P.ProductName, E1.EmployeeID AS Employee1ID,CONCAT(E1.FirstName," ",E1.LastName) AS Employee1Name, E2.EmployeeID AS Employee2ID,CONCAT(E2.FirstName," ",E2.LastName) AS Employee2Name FROM products P NATURAL JOIN orderdetails OD NATURAL JOIN orders O INNER JOIN employees E1 ON E1.EmployeeID = O.EmployeeID CROSS JOIN employees E2 WHERE E1.EmployeeID < E2.EmployeeID 
+***
+Q11
+SELECT DISTINCT s.SupplierID,s.SupplierName FROM suppliers s LEFT JOIN products p ON p.SupplierID = s.SupplierID
+***
+Q12
+SELECT C.CustomerID, C.CustomerName FROM orders O RIGHT JOIN customers C ON O.CustomerID = C.CustomerID WHERE O.OrderID IS NULL
+***
+Q13
+SELECT C1.CustomerID As Customer1ID, C1.CustomerName AS Customer1Name, C2.CustomerID AS Customer2ID, C2.CustomerName AS Customer2Name, DATE(O1.OrderDate) AS OrderDate FROM orders O1 INNER JOIN orders O2 ON DATE(O1.OrderDate) = DATE(O2.OrderDate) AND O1.CustomerID < O2.CustomerID INNER JOIN customers C1 ON C1.CustomerID = O1.CustomerID INNER JOIN customers C2 ON C2.CustomerID = O2.CustomerID 
+***
+Q14
+SELECT C1.CustomerID As Customer1ID, C1.CustomerName AS Customer1Name, C2.CustomerID AS Customer2ID, C2.CustomerName AS Customer2Name, E1.EmployeeID AS Employee1ID,CONCAT(E1.FirstName," ",E1.LastName) AS Employee1Name, E2.EmployeeID AS Employee2ID,CONCAT(E2.FirstName," ",E2.LastName) AS Employee2Name FROM orders O1 INNER JOIN orders O2 ON O1.CustomerID = O2.CustomerID AND O1.EmployeeID < O2.EmployeeID INNER JOIN customers C1 ON C1.CustomerID = O1.CustomerID INNER JOIN customers C2 ON C2.CustomerID = O2.CustomerID INNER JOIN employees E1 ON E1.EmployeeID = O1.EmployeeID INNER JOIN employees E2 ON E2.EmployeeID = O2.EmployeeID 
+***

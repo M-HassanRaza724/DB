@@ -1,0 +1,40 @@
+Q1
+select ProductName from products where PRODUCTid not in ( select productID from orderdetails)
+***
+Q2
+select CustomerName from customers where customerid not in (select Customerid from orders)
+***
+Q3
+SELECT SupplierName FROM Suppliers WHERE Supplierid = ANY (SELECT Supplierid FROM products WHERE categoryID = (SELECT categoryID FROM categories WHERE categoryName = 'Seafood'))
+***
+Q4
+select C.CustomerName from customers C where C.customerID in
+(select O.customerID from orders O where O.orderID in 
+(select OD.orderID from orderdetails OD where OD.productID in
+(select P.productID from products P where P.supplierID in 
+(select S.supplierID from suppliers S where C.City = S.city)))) 
+***
+Q5
+SELECT P.ProductName, P.categoryID FROM products P WHERE P.Price = (SELECT max(P2.Price) FROM products P2 WHERE P2.CategoryID = P.categoryID)
+***
+Q6
+SELECT Distinct OrderID FROM orderdetails OD WHERE (SELECT sum(quantity) FROM orderdetails OD2 WHERE OD2.orderID = OD.orderID ) > 100
+***
+Q1
+***
+Q1
+***
+Q1
+***
+Q1
+***
+Q1
+***
+Q1
+***
+Q1
+***
+Q1
+***
+Q1
+***
